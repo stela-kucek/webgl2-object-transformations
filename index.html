@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Stela Kucek WebGL</title>
+
+    <link href="css/main.css" rel="stylesheet">
+    <script src="js/glMatrix-0.9.5.max.js"></script>
+    <style>
+        div {
+            background-color: lightgrey;
+            position: absolute;
+            top: 8px;
+            left: 0;
+            width: 200px;
+            height: 520px;
+            border: 25px solid teal;
+            padding: 25px;
+            margin: 0px;
+        }
+    </style>
+</head>
+<body onload="main()">
+<script src="js/lab1a_main.js"></script>
+<script src="js/object.js"></script>
+<script src="js/cube.js"></script>
+<script src="js/rectangle.js"></script>
+<script src="js/transformations.js"></script>
+<script src="js/keystrokes_handler.js"></script>
+<script src="js/shader_handler.js"></script>
+<script src="js/global.js"></script>
+<script src="js/sphere.js"></script>
+<script src="js/cone.js"></script>
+<script src="js/camera.js"></script>
+
+<canvas id="Canvas" style="background: url('img/stars.jpg'); left: 300px; position: absolute" width="1100" height="620">
+
+</canvas>
+<div><font size="2">
+    <center><em><b><ins>Controls</ins></b></em></center>
+</font>
+    <font size="1">
+        <b>0</b>: select all shapes<br>
+        <b>1</b> to <b>9</b>: select individual shapes
+        <br>
+        <b>c</b> : switch to camera movement (arrows only)
+        <b>
+            <center>Translation</center>
+        </b>
+        <b>arrow up</b> - move up / + direction of Y-axis
+        <br>
+        <b>arrow down</b> - move down / - direction of Y-axis
+        <br>
+        <b>arrow right</b> - move right / + direction of X-axis
+        <br>
+        <b>arrow left</b> - move left / - direction of X-axis
+        <br>
+        <b>.</b> - move back / + direction of Z-axis
+        <br>
+        <b>,</b> - move forward / - direction of Z-axis
+        <br>
+        <b>
+            <center>Rotation</center>
+        </b>
+        <b>w</b> - clockwise, X-axis <br>
+        <b>s</b> - counterclockwise, X-axis <br>
+        <b>e</b> - clockwise, Y-axis <br>
+        <b>q</b> - counterclockwise, Y-axis <br>
+        <b>d</b> - clockwise, Z-axis <br>
+        <b>a</b> - counterclockwise, Z-axis <br>
+        <b>
+            <center>Scale</center>
+        </b>
+        <b>x</b> - decrease width <br>
+        <b>X</b> - increase width <br>
+        <b>y</b> - decrease height <br>
+        <b>Y</b> - increase height <br>
+        <b>z</b> - decrease depth <br>
+        <b>Z</b> - increase depth <br>
+    </font>
+
+</div>
+<!-- Shader code snippets derived from Udemy WebGL tutorial:
+     https://www.udemy.com/the-extensive-webgl-series-part1-low-level-basics/-->
+<script id="vertexShader" type="vertexShader">
+                #version 300 es
+                in vec3 position;
+                in vec4 color;
+                out vec4 fcolor;
+
+                uniform mat4 modelMatrix;
+                uniform mat4 viewMatrix;
+                uniform mat4 projectionMatrix;
+
+                void main(){
+                    gl_Position = projectionMatrix*viewMatrix*modelMatrix*vec4(position, 1);
+                    fcolor = color;
+                }
+
+
+
+</script>
+
+<script id="fragmentShader" type="fragmentShader">
+                #version 300 es
+                precision mediump float;
+                in vec4 fcolor;
+                out vec4 finalColor;
+
+                void main() {
+                    finalColor = fcolor;
+                }
+
+
+
+</script>
+</body>
+</html>
